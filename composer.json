@@ -1,0 +1,11 @@
+{
+    "name": "benyi/git-tag-generator",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Benyi",
+            "email": "banqhsia@msn.com"
+        }
+    ],
+    "require": {}
+}
