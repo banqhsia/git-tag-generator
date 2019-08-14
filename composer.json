@@ -7,5 +7,7 @@
             "email": "banqhsia@msn.com"
         }
     ],
-    "require": {}
+    "require": {
+        "pragmarx/ia-collection": "^5.8"
+    }
 }
