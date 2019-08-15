@@ -8,6 +8,12 @@
         }
     ],
     "require": {
-        "pragmarx/ia-collection": "^5.8"
+        "pragmarx/ia-collection": "^5.8",
+        "phpunit/phpunit": "^7.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Benyi\\GitTagGenerator\\": "src//"
+        }
     }
 }
