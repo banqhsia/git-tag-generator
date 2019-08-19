@@ -80,4 +80,17 @@ class Version
     {
         return (int) $this->getExplodedVersion()[2];
     }
+
+    /**
+     * Create instance from given array.
+     *
+     * @param int[] $versionArray
+     * @return static
+     */
+    public static function createFromArray($versionArray)
+    {
+        $version = implode('.', $versionArray);
+
+        return new static("v{$version}");
+    }
 }
