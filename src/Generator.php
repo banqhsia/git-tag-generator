@@ -5,6 +5,11 @@ namespace Benyi\GitTagGenerator;
 class Generator
 {
     /**
+     * @var Version[]
+     */
+    private $versions;
+
+    /**
      * Construct
      *
      * @param Version[] $versions
@@ -21,22 +26,14 @@ class Generator
      */
     public function getLatest()
     {
-        $majors = [];
-
         foreach ($this->versions as $version) {
-            $majors[] = $version->getMajor();
-
             $sorted[$version->getMajor()][$version->getMinor()][$version->getBuild()] = $version;
         }
 
-        $majored = $sorted[max($majors)];
+        $latestMajor = $sorted[max(array_keys($sorted))];
+        $latestMinor = $latestMajor[max(array_keys($latestMajor))];
 
-        $minor = max(array_keys($majored));
-        $minored = $majored[$minor];
-
-        $build = max(array_keys($minored));
-
-        return $minored[$build];
+        return $latestMinor[max(array_keys($latestMinor))];
     }
 
     /**
@@ -46,12 +43,11 @@ class Generator
      */
     public function getNextMajor()
     {
-        $latest = $this->getLatest();
-        $next = $latest->getMajor() + 1;
-
-        $versionString = [$next, 0, 0];
-
-        return Version::createFromArray($versionString);
+        return Version::createFromArray([
+            $this->getLatest()->getMajor() + 1,
+            0,
+            0,
+        ]);
     }
 
     /**
@@ -61,12 +57,11 @@ class Generator
      */
     public function getNextMinor()
     {
-        $latest = $this->getLatest();
-        $next = $latest->getMinor() + 1;
-
-        $versionString = [$latest->getMajor(), $next, 0];
-
-        return Version::createFromArray($versionString);
+        return Version::createFromArray([
+            $this->getLatest()->getMajor(),
+            $this->getLatest()->getMinor() + 1,
+            0,
+        ]);
     }
 
     /**
@@ -76,11 +71,10 @@ class Generator
      */
     public function getNextBuild()
     {
-        $latest = $this->getLatest();
-        $next = $latest->getBuild() + 1;
-
-        $versionString = [$latest->getMajor(), $latest->getMinor(), $next];
-
-        return Version::createFromArray($versionString);
+        return Version::createFromArray([
+            $this->getLatest()->getMajor(),
+            $this->getLatest()->getMinor(),
+            $this->getLatest()->getBuild() + 1,
+        ]);
     }
 }

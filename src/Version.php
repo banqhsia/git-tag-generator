@@ -22,6 +22,16 @@ class Version
     }
 
     /**
+     * Get the version.
+     *
+     * @return string
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
+    /**
      * Determine if the given string is valid version or not.
      *
      * @return bool
