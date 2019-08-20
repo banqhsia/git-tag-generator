@@ -38,7 +38,19 @@ class Version
      */
     public function isVersionFormat()
     {
-        return Str::startsWith($this->version, 'v') && (3 === count($this->getExplodedVersion()));
+        if (false === Str::startsWith($this->version, 'v')) {
+            return false;
+        }
+
+        $exploded = collect($this->getExplodedVersion());
+
+        if (in_array($exploded->count(), range(1, 3))) {
+            return $exploded->every(function ($number) {
+                return is_numeric($number);
+            });
+        }
+
+        return false;
     }
 
     /**
