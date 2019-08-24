@@ -7,10 +7,25 @@ use IlluminateAgnostic\Collection\Support\Str;
 
 class Command
 {
+    const OPTION_REPOSITORY = 'repo';
+    const OPTION_CREATE = 'create';
+
+    /**
+     * The git directory.
+     */
+    const GIT_DIRECTORY = '.git';
+
     /**
      * @var array
      */
     private $commands;
+
+    /**
+     * The version identifiers.
+     *
+     * @var string[]
+     */
+    protected $identifiers = ['major', 'minor', 'build'];
 
     /**
      * Construct
@@ -29,7 +44,7 @@ class Command
      */
     public function hasRepository()
     {
-        return Arr::has($this->commands, 'repo');
+        return Arr::has($this->commands, static::OPTION_REPOSITORY);
     }
 
     /**
@@ -50,10 +65,17 @@ class Command
                 return empty($segment);
             });
 
-        if ('.git' !== $exploded->last()) {
-            $exploded->push('.git');
+        /**
+         * If the last item of exploded array is not ".git" folder, give them one.
+         */
+        if (static::GIT_DIRECTORY !== $exploded->last()) {
+            $exploded->push(static::GIT_DIRECTORY);
         }
 
+        /**
+         * If the repository path starts with directory separator, the first
+         * one will be lost after passing through the "explode" function.
+         */
         $path = '';
         if (Str::startsWith($repository, $this->getDirectorySeparator())) {
             $path .= $this->getDirectorySeparator();
@@ -71,7 +93,7 @@ class Command
      */
     public function hasCreate()
     {
-        return Arr::has($this->commands, 'create');
+        return Arr::has($this->commands, static::OPTION_CREATE);
     }
 
     /**
@@ -87,13 +109,13 @@ class Command
             return null;
         }
 
-        $create = Arr::get($this->commands, 'create');
+        $identifier = Arr::get($this->commands, static::OPTION_CREATE);
 
-        if (in_array($create, ['major', 'minor', 'build'], $create)) {
-            return $create;
+        if (in_array($identifier, $this->identifiers)) {
+            return $identifier;
         }
 
-        throw new \InvalidArgumentException("$create is not support");
+        throw new \InvalidArgumentException("$identifier is not support");
     }
 
     /**
