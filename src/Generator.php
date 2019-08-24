@@ -77,4 +77,17 @@ class Generator
             $this->getLatest()->getPatch() + 1,
         ]);
     }
+
+    /**
+     * Get the next version by given identifier.
+     *
+     * @param string $identifier
+     * @return Version
+     */
+    public function getNext($identifier)
+    {
+        $method = "getNext{$identifier}";
+
+        return $this->{$method}();
+    }
 }

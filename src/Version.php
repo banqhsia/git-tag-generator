@@ -116,4 +116,12 @@ class Version
 
         return new static("v{$version}");
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getVersion();
+    }
 }
