@@ -15,13 +15,13 @@ class VersionTest extends TestCase
      *           ["v1", 1, 0, 0]
      *           ["v2.3", 2, 3, 0]
      */
-    public function test_should_parse_number($given, $major, $minor, $build)
+    public function test_should_parse_number($given, $major, $minor, $patch)
     {
         $target = new Version($given);
 
         $this->assertSame($major, $target->getMajor());
         $this->assertSame($minor, $target->getMinor());
-        $this->assertSame($build, $target->getBuild());
+        $this->assertSame($patch, $target->getPatch());
     }
 
     /**

@@ -27,7 +27,7 @@ class Generator
     public function getLatest()
     {
         foreach ($this->versions as $version) {
-            $sorted[$version->getMajor()][$version->getMinor()][$version->getBuild()] = $version;
+            $sorted[$version->getMajor()][$version->getMinor()][$version->getPatch()] = $version;
         }
 
         $latestMajor = $sorted[max(array_keys($sorted))];
@@ -65,16 +65,16 @@ class Generator
     }
 
     /**
-     * Get the next build version.
+     * Get the next patch version.
      *
      * @return Version
      */
-    public function getNextBuild()
+    public function getNextPatch()
     {
         return Version::createFromArray([
             $this->getLatest()->getMajor(),
             $this->getLatest()->getMinor(),
-            $this->getLatest()->getBuild() + 1,
+            $this->getLatest()->getPatch() + 1,
         ]);
     }
 }

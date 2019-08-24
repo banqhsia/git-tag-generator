@@ -47,7 +47,7 @@ class CommandTest extends TestCase
     public function test_should_throw_InvalidArgumentException_when_create_not_allowed()
     {
         $this->givenCommands([
-            'create' => 'some_build_version',
+            'create' => 'some_patch_version',
         ]);
 
         $this->expectException(\InvalidArgumentException::class);

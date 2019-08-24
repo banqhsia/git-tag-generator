@@ -12,6 +12,6 @@ $versions = VersionFactory::create($versions);
 $generator = new Generator($versions);
 
 dump($generator->getLatest());
-dump($generator->getNextBuild());
+dump($generator->getNextPatch());
 dump($generator->getNextMinor());
 dump($generator->getNextMajor());

@@ -41,14 +41,14 @@ class GeneratorTest extends TestCase
         $this->assertEquals(new Version('v2.7.0'), $this->target->getNextMinor());
     }
 
-    public function test_should_get_next_build_version()
+    public function test_should_get_next_patch_version()
     {
         $this->givenVersions([
             new Version('v1.1.0'),
             new Version('v2.6.0'),
         ]);
 
-        $this->assertEquals(new Version('v2.6.1'), $this->target->getNextBuild());
+        $this->assertEquals(new Version('v2.6.1'), $this->target->getNextPatch());
     }
 
     private function givenVersions($versions)

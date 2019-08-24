@@ -25,7 +25,7 @@ class Command
      *
      * @var string[]
      */
-    protected $identifiers = ['major', 'minor', 'build'];
+    protected $identifiers = ['major', 'minor', 'patch'];
 
     /**
      * Construct

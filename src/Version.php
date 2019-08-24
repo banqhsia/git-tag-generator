@@ -95,11 +95,11 @@ class Version
     }
 
     /**
-     * Get the exploded build number.
+     * Get the exploded patch number.
      *
      * @return string
      */
-    public function getBuild()
+    public function getPatch()
     {
         return (int) Arr::get($this->getExplodedVersion(), 2, 0);
     }
