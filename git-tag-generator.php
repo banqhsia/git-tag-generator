@@ -1,11 +1,16 @@
 <?php
 
+use Benyi\GitTagGenerator\Command;
 use Benyi\GitTagGenerator\Generator;
+use Benyi\GitTagGenerator\GitCommand;
 use Benyi\GitTagGenerator\VersionFactory;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-exec("git --git-dir $argv[1] tag", $versions);
+$command = new Command(getopt('', ['repo:', 'create:']));
+$gitCommand = new GitCommand($command);
+
+$versions = $gitCommand->getTags();
 
 $versions = VersionFactory::create($versions);
 
