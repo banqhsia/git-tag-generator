@@ -56,7 +56,7 @@ class Command
     public function getRepository()
     {
         if ($this->hasRepository()) {
-            $repository = Arr::get($this->commands, 'repo');
+            $repository = Arr::get($this->commands, static::OPTION_REPOSITORY);
         } else {
             $repository = $this->getCurrentWorkingDirectory();
         }
@@ -115,7 +115,7 @@ class Command
     /**
      * Get the "next" option.
      *
-     * @return string
+     * @return string|null
      *
      * @throws \InvalidArgumentException
      */
