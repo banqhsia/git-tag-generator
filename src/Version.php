@@ -2,6 +2,7 @@
 
 namespace Benyi\GitTagGenerator;
 
+use IlluminateAgnostic\Collection\Support\Arr;
 use IlluminateAgnostic\Collection\Support\Str;
 
 class Version
@@ -80,7 +81,7 @@ class Version
      */
     public function getMajor()
     {
-        return (int) $this->getExplodedVersion()[0];
+        return (int) Arr::get($this->getExplodedVersion(), 0, 0);
     }
 
     /**
@@ -90,7 +91,7 @@ class Version
      */
     public function getMinor()
     {
-        return (int) $this->getExplodedVersion()[1];
+        return (int) Arr::get($this->getExplodedVersion(), 1, 0);
     }
 
     /**
@@ -100,7 +101,7 @@ class Version
      */
     public function getBuild()
     {
-        return (int) $this->getExplodedVersion()[2];
+        return (int) Arr::get($this->getExplodedVersion(), 2, 0);
     }
 
     /**
