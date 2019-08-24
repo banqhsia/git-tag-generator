@@ -9,6 +9,7 @@ class Command
 {
     const OPTION_REPOSITORY = 'repo';
     const OPTION_CREATE = 'create';
+    const OPTION_NEXT = 'next';
 
     /**
      * The git directory.
@@ -93,23 +94,38 @@ class Command
      */
     public function hasCreate()
     {
-        return Arr::has($this->commands, static::OPTION_CREATE);
+        if (Arr::has($this->commands, static::OPTION_CREATE)) {
+            /** If the option presents, the value would be "false" */
+            return false === Arr::get($this->commands, static::OPTION_CREATE);
+        }
+
+        return false;
     }
 
     /**
-     * Get the "create" option.
+     * Determine if commands have "next" option.
+     *
+     * @return bool
+     */
+    public function hasNext()
+    {
+        return Arr::has($this->commands, static::OPTION_NEXT);
+    }
+
+    /**
+     * Get the "next" option.
      *
      * @return string
      *
      * @throws \InvalidArgumentException
      */
-    public function getCreate()
+    public function getNext()
     {
-        if (false === $this->hasCreate()) {
+        if (false === $this->hasNext()) {
             return null;
         }
 
-        $identifier = Arr::get($this->commands, static::OPTION_CREATE);
+        $identifier = Arr::get($this->commands, static::OPTION_NEXT);
 
         if (in_array($identifier, $this->identifiers)) {
             return $identifier;

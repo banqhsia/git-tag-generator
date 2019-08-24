@@ -27,32 +27,49 @@ class CommandTest extends TestCase
         $this->assertTrue($this->target->hasRepository());
     }
 
-    public function test_should_get_false_when_create_NOT_given()
+    public function test_should_get_false_when_next_NOT_given()
     {
         $this->givenCommands([
         ]);
 
-        $this->assertFalse($this->target->hasCreate());
+        $this->assertFalse($this->target->hasNext());
     }
 
-    public function test_should_get_false_when_create_given()
+    public function test_should_get_false_when_next_given()
     {
         $this->givenCommands([
-            'create' => 'major',
+            'next' => 'major',
+        ]);
+
+        $this->assertTrue($this->target->hasNext());
+    }
+
+    public function test_should_throw_InvalidArgumentException_when_next_not_allowed()
+    {
+        $this->givenCommands([
+            'next' => 'some_patch_version',
+        ]);
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->target->getNext();
+    }
+
+    public function test_should_get_true_when_create_option_is_false()
+    {
+        $this->givenCommands([
+            'create' => false,
         ]);
 
         $this->assertTrue($this->target->hasCreate());
     }
 
-    public function test_should_throw_InvalidArgumentException_when_create_not_allowed()
+    public function test_should_get_false_when_create_option_is_empty()
     {
         $this->givenCommands([
-            'create' => 'some_patch_version',
         ]);
 
-        $this->expectException(\InvalidArgumentException::class);
-
-        $this->target->getCreate();
+        $this->assertFalse($this->target->hasCreate());
     }
 
     /**
