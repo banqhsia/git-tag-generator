@@ -30,9 +30,20 @@ class GitCommand
     }
 
     /**
+     * Create the tag using the given tag name.
+     *
+     * @param string $tagName
+     * @return string[]
+     */
+    public function createTag($tagName)
+    {
+        return $this->execute("git --git-dir {$this->command->getRepository()} tag {$tagName}");
+    }
+
+    /**
      * Execute the given command and return the array of result.
      *
-     * @param $command
+     * @param string $command
      * @return string[]
      */
     protected function execute($command)
