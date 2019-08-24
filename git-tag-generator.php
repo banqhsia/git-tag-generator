@@ -1,15 +1,13 @@
 <?php
 
-use Benyi\GitTagGenerator\Version;
 use Benyi\GitTagGenerator\Generator;
+use Benyi\GitTagGenerator\VersionFactory;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 exec("git --git-dir $argv[1] tag", $versions);
 
-$versions = collect($versions)->mapInto(Version::class)->filter(function (Version $version) {
-    return $version->isVersionFormat();
-});
+$versions = VersionFactory::create($versions);
 
 $generator = new Generator($versions);
 
