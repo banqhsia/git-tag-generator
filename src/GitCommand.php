@@ -2,6 +2,8 @@
 
 namespace Benyi\GitTagGenerator;
 
+use IlluminateAgnostic\Collection\Support\Str;
+
 class GitCommand
 {
     /**
@@ -26,7 +28,7 @@ class GitCommand
      */
     public function getTags()
     {
-        return $this->execute("git --git-dir {$this->command->getRepository()} tag");
+        return $this->execute("tag");
     }
 
     /**
@@ -37,18 +39,41 @@ class GitCommand
      */
     public function createTag($tagName)
     {
-        return $this->execute("git --git-dir {$this->command->getRepository()} tag {$tagName}");
+        return $this->execute("tag {$tagName}");
+    }
+
+    /**
+     * Get the current branch.
+     *
+     * @return string
+     */
+    public function getCurrentBranch()
+    {
+        $branch = $this->execute("branch | grep \*");
+
+        return Str::replaceFirst("* ", null, $branch[0]);
+    }
+
+    /**
+     * Determine if the current branch is equal to target branch.
+     *
+     * @param string $targetBranch
+     * @return bool
+     */
+    public function isOnBranch($targetBranch)
+    {
+        return $this->getCurrentBranch() === $targetBranch;
     }
 
     /**
      * Execute the given command and return the array of result.
-     *
+     *p
      * @param string $command
      * @return string[]
      */
     protected function execute($command)
     {
-        exec($command, $result);
+        exec("git --git-dir {$this->command->getRepository()} {$command}", $result);
 
         return $result;
     }
