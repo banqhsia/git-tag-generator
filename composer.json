@@ -9,7 +9,8 @@
     ],
     "require": {
         "pragmarx/ia-collection": "^5.8",
-        "phpunit/phpunit": "^7.5"
+        "phpunit/phpunit": "^7.5",
+        "codedungeon/php-cli-colors": "~1.0"
     },
     "autoload": {
         "psr-4": {
