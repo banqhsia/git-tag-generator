@@ -88,6 +88,16 @@ class Command
     }
 
     /**
+     * Get the real path.
+     *
+     * @return string
+     */
+    public function getRealPath()
+    {
+        return realpath($this->getRepository());
+    }
+
+    /**
      * Determine if commands have "create" option.
      *
      * @return bool

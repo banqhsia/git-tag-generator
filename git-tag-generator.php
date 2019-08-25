@@ -26,7 +26,7 @@ $currentBranch = (function () use ($gitCommand, $c) {
 $output = Response::buffer();
 
 $output->pushMany([
-    "{$c->gray()}- Git repository:{$c->reset()} {$command->getRepository()}",
+    "{$c->gray()}- Git repository:{$c->reset()} {$command->getRealPath()}",
     "{$c->gray()}- Current branch:{$c->reset()} {$currentBranch}",
     "{$c->gray()}- Current version:{$c->reset()} {$generator->getLatest()}"]
 )->blankLine();
