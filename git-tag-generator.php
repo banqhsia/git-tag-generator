@@ -13,7 +13,20 @@ $command = new Command(getopt('h', ['repo:', 'next:', 'create', 'help']));
 $gitCommand = new GitCommand($command);
 $versions = VersionFactory::create($gitCommand->getTags());
 $generator = new Generator($versions);
+$output = Response::buffer();
 $c = new Color;
+
+if ($command->hasHelp()) {
+    $output->pushMany([
+        "php git-tag-generator.php [--repo <path>] [--next <identifier> [--create]]",
+        null,
+        "Options:",
+        null,
+        "--repo <path> \t\t\tSpecify a repo to run, the path will be the current working directory if not given.",
+        "--next <identifier> [--create] \tThe version identifier. Available options: major, minor, patch.",
+        "--help|-h \t\t\t\tPrint this help."
+    ])->send();
+}
 
 $currentBranch = (function () use ($gitCommand, $c) {
     if ($gitCommand->isOnBranch("release")) {
@@ -22,8 +35,6 @@ $currentBranch = (function () use ($gitCommand, $c) {
 
     return "{$c->yellow()}{$gitCommand->getCurrentBranch()}{$c->reset()} (Not on release)";
 })();
-
-$output = Response::buffer();
 
 $output->pushMany([
     "{$c->gray()}- Git repository:{$c->reset()} {$command->getRealPath()}",
