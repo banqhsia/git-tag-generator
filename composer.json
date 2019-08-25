@@ -15,6 +15,9 @@
     "autoload": {
         "psr-4": {
             "Benyi\\GitTagGenerator\\": "src//"
-        }
+        },
+        "files": [
+            "bootstrap.php"
+        ]
     }
 }
