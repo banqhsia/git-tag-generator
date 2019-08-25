@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 
 require_once __DIR__ . '/bootstrap.php';
@@ -18,7 +19,7 @@ $c = new Color;
 
 if ($command->hasHelp()) {
     $output->pushMany([
-        "php git-tag-generator.php [--repo <path>] [--next <identifier> [--create]]",
+        "git-tag-generator [--repo <path>] [--next <identifier> [--create]]",
         null,
         "Options:",
         null,
