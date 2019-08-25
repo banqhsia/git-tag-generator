@@ -1,6 +1,6 @@
 {
     "name": "benyi/git-tag-generator",
-    "type": "project",
+    "type": "library",
     "authors": [
         {
             "name": "Benyi",
