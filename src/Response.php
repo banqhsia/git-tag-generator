@@ -15,9 +15,9 @@ class Response
     /**
      * The output buffer.
      *
-     * @var string[]
+     * @var Collection
      */
-    private $output = [];
+    private $output;
 
     /**
      * Construct
@@ -96,6 +96,10 @@ class Response
      */
     public function send($error = false)
     {
+        if (empty(trim($this->output->last()))) {
+            $this->output->pop();
+        }
+
         $this->push(PHP_EOL);
 
         echo $this->output->implode(PHP_EOL);
