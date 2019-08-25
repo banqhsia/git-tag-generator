@@ -24,4 +24,16 @@ class VersionFactoryTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function test_should_throw_RuntimeException_when_no_tags_passed()
+    {
+        $givenVersions = [
+            'last',
+            'list',
+            'release/3',
+        ];
+
+        $this->expectException(\RuntimeException::class);
+
+        VersionFactory::create($givenVersions);
+    }
 }

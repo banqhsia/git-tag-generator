@@ -9,11 +9,19 @@ class VersionFactory
      *
      * @param array $versions
      * @return Version[]
+     *
+     * @throws \RuntimeException
      */
     public static function create($versions)
     {
-        return collect($versions)->mapInto(Version::class)->filter(function (Version $version) {
+        $versions = collect($versions)->mapInto(Version::class)->filter(function (Version $version) {
             return $version->isVersionFormat();
-        })->values()->toArray();
+        });
+
+        if ($versions->isEmpty()) {
+            throw new \RuntimeException("There's no valid version of your git tags.");
+        }
+
+        return $versions->values()->toArray();
     }
 }
