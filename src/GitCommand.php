@@ -19,6 +19,23 @@ class GitCommand
     public function __construct(Command $command)
     {
         $this->command = $command;
+
+        $this->ensurePathIsGitRepository();
+    }
+
+    /**
+     * Ensures that the directory from command line option is git repository.
+     * (Check if ".git" folder exists)
+     *
+     * @return void
+     *
+     * @throws \RuntimeException
+     */
+    protected function ensurePathIsGitRepository()
+    {
+        if (false === is_dir($repo = $this->command->getRepository())) {
+            throw new \RuntimeException("Not a git repository: {$repo}");
+        }
     }
 
     /**
