@@ -1,6 +1,13 @@
 {
     "name": "benyi/git-tag-generator",
+    "description": "Git-tag-generator is a tool that can help you generate release tag conveniently.",
     "type": "library",
+    "keywords": [
+        "git",
+        "tag",
+        "generate",
+        "release"
+    ],
     "authors": [
         {
             "name": "Benyi",
