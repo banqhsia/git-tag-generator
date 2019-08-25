@@ -34,7 +34,7 @@ class GitCommand
     protected function ensurePathIsGitRepository()
     {
         if (false === is_dir($repo = $this->command->getRepository())) {
-            throw new \RuntimeException("Not a git repository: {$repo}");
+            throw new \RuntimeException("Not a git repository: {$repo}\n  Use --repo to specify another git path, or --help to see help.");
         }
     }
 

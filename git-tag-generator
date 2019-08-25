@@ -11,11 +11,7 @@ use Benyi\GitTagGenerator\GitCommand;
 use Benyi\GitTagGenerator\VersionFactory;
 
 $command = new Command(getopt('h', ['repo:', 'next:', 'create', 'help']));
-$gitCommand = new GitCommand($command);
-$versions = VersionFactory::create($gitCommand->getTags());
-$generator = new Generator($versions);
 $output = Response::buffer();
-$c = new Color;
 
 if ($command->hasHelp()) {
     $output->pushMany([
@@ -25,9 +21,14 @@ if ($command->hasHelp()) {
         null,
         "--repo <path> \t\t\tSpecify a repo to run, the path will be the current working directory if not given.",
         "--next <identifier> [--create] \tThe version identifier. Available options: major, minor, patch.",
-        "--help|-h \t\t\t\tPrint this help."
+        "--help|-h \t\t\t\tPrint this help.",
     ])->send();
 }
+
+$gitCommand = new GitCommand($command);
+$versions = VersionFactory::create($gitCommand->getTags());
+$generator = new Generator($versions);
+$c = new Color;
 
 $currentBranch = (function () use ($gitCommand, $c) {
     if ($gitCommand->isOnBranch("release")) {

@@ -19,7 +19,7 @@ class VersionFactory
         });
 
         if ($versions->isEmpty()) {
-            throw new \RuntimeException("There's no valid version of your git tags.");
+            throw new \RuntimeException("There's no valid version of your git tags.\n  Use --help to see help.");
         }
 
         return $versions->values()->toArray();
