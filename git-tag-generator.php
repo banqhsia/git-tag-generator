@@ -9,7 +9,7 @@ use Benyi\GitTagGenerator\Generator;
 use Benyi\GitTagGenerator\GitCommand;
 use Benyi\GitTagGenerator\VersionFactory;
 
-$command = new Command(getopt('', ['repo:', 'next:', 'create']));
+$command = new Command(getopt('h', ['repo:', 'next:', 'create', 'help']));
 $gitCommand = new GitCommand($command);
 $versions = VersionFactory::create($gitCommand->getTags());
 $generator = new Generator($versions);

@@ -84,7 +84,7 @@ class GitCommand
 
     /**
      * Execute the given command and return the array of result.
-     *p
+     *
      * @param string $command
      * @return string[]
      */

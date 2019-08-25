@@ -11,6 +11,9 @@ class Command
     const OPTION_CREATE = 'create';
     const OPTION_NEXT = 'next';
 
+    const OPTION_HELP_SHORT = 'h';
+    const OPTION_HELP = 'help';
+
     /**
      * The git directory.
      */
@@ -36,6 +39,24 @@ class Command
     public function __construct($commands)
     {
         $this->commands = $commands;
+    }
+
+    /**
+     * Determine if commands have "help" or "h" option.
+     *
+     * @return bool
+     */
+    public function hasHelp()
+    {
+        $helpOptions = [static::OPTION_HELP, static::OPTION_HELP_SHORT];
+
+        foreach ($helpOptions as $option) {
+            if (Arr::has($this->commands, $option)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

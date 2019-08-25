@@ -27,6 +27,25 @@ class CommandTest extends TestCase
         $this->assertTrue($this->target->hasRepository());
     }
 
+    public function test_should_get_true_when_help_option_given()
+    {
+        $this->givenCommands([
+            'help' => false,
+        ]);
+
+        $this->assertTrue($this->target->hasHelp());
+    }
+
+    public function test_should_get_true_when_h_option_given()
+    {
+        // short option
+        $this->givenCommands([
+            'h' => false,
+        ]);
+
+        $this->assertTrue($this->target->hasHelp());
+    }
+
     public function test_should_get_false_when_next_NOT_given()
     {
         $this->givenCommands([
